@@ -133,4 +133,37 @@ with open("input.txt") as file:
         priority = get_priority(common_type)        
         sum_of_priorities += priority
 
-print("Total sum of priorities = ", sum_of_priorities)
+print("Total sum of priorities (part 1) = ", sum_of_priorities)
+
+# second half of puzzle
+
+def get_badge(str1, str2, str3):
+    """ Given 3 strings gets the character they have in common """
+    for x in str1:
+        for y in str2:
+            for z in str3:
+                if x == y and y == z:
+                    return x
+    return 0    # no similar chars found
+
+
+sum_of_priorities = 0
+with open("input.txt") as file:
+    line_number = 0
+    group = []
+    for line in file:
+        line = line.replace("\n", "")   # get rid of the ugly \n
+        group.append(line)  # add to seperate list so can eval in groups of 3
+        line_number += 1
+
+        if (line_number > 2):
+            # we have a group. time to test for the badge and priority
+            badge = get_badge(group[0], group[1], group[2])
+            priority = get_priority(badge)
+            sum_of_priorities += priority
+
+            # clear the group, go back to loop to get next group
+            line_number = 0
+            group = []
+        
+print("Total sum of priorities (part 2) = ", sum_of_priorities)

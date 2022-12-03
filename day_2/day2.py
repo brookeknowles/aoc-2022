@@ -1,4 +1,6 @@
-
+"""
+answers for day 2
+"""
 def check_winner(game):
     rock = "AX"
     paper = "BY"
